@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.8
+
+- Add GPT-6.1 Sol fallback metadata and Fast support for the GPT-6 model family.
+- Add `/openai-tier` for Standard, Fast, and capability-gated API Astra Ultrafast, with explicit pricing warnings, persistence, diagnostics, and footer labels.
+- Add opt-in `openai_decide` and `/openai-decisions` through Pi's classifier API, with typed validation, cancellation, safe errors, and usage accounting.
+- Include classifier tool usage in footer totals and preserve legacy Fast settings and customized model lists.
+- Document remaining native OpenAI Decisions, Codex subscription Ultrafast, and hosted multi-agent integration gates; no undocumented endpoint or chat fallback is assumed.
+
 ## 0.2.7
 
 - Validate against Pi 0.99.0, including an offline real-host package-loading probe.

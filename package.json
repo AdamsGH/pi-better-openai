@@ -1,6 +1,6 @@
 {
   "name": "@monotykamary/pi-better-openai",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Improve OpenAI in pi with fast mode, usage stats, realtime voice, image generation, and footer polish.",
   "keywords": [
     "fast",
@@ -38,6 +38,8 @@
     "index.ts",
     "src/",
     "README.md",
+    "CHANGELOG.md",
+    "plans/devday-integration.md",
     "LICENSE",
     "THIRD_PARTY_NOTICES.md"
   ],
