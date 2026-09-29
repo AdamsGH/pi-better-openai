@@ -1,4 +1,5 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { builtinProviders } from "@earendil-works/pi-ai/providers/all";
 import type { ModelsPublication, RefreshModelsContext } from "@earendil-works/pi-ai";
 import { describe, expect, test, vi } from "vitest";
 import {
@@ -126,7 +127,10 @@ describe("OpenAI Codex model registration", () => {
 
     expect(registerProvider).toHaveBeenCalledOnce();
     expect(registerProvider).toHaveBeenCalledWith(
-      expect.objectContaining({ id: "openai-codex", name: "OpenAI Codex" }),
+      expect.objectContaining({
+        id: "openai-codex",
+        name: builtinProviders().find((provider) => provider.id === "openai-codex")?.name,
+      }),
     );
   });
 });
