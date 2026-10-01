@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.9
+
+- Validate Pi 1.0.0 with exact development pins and wildcard host peers.
+- Exercise real-host registration, startup, and repeated shutdown offline.
+- Scope Vitest to owned tests so ignored research checkouts do not enter release checks.
+
 ## 0.2.8
 
 - Add GPT-6.1 Sol fallback metadata and Fast support for the GPT-6 model family.
