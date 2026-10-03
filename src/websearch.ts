@@ -8,6 +8,7 @@ import {
 } from "./config.ts";
 import { getCodexCredentials, type CodexCredentialsWithSource } from "./codex-auth.ts";
 import { maskIdentifier, sanitizeDiagnosticError } from "./format.ts";
+import { registerOptionalTool, type OptionalTool } from "./optional-tool.ts";
 
 export const OPENAI_WEBSEARCH_TOOL = "openai_websearch";
 export const OPENAI_WEBSEARCH_COMMAND = "openai-websearch";
@@ -316,7 +317,7 @@ async function requestWebSearch(
 export function registerOpenAIWebSearch(
   pi: ExtensionAPI,
   getConfig: (ctx: ExtensionContext) => ResolvedConfig,
-): { getDebug: (ctx: ExtensionContext) => Promise<WebSearchDebug> } {
+): OptionalTool & { getDebug: (ctx: ExtensionContext) => Promise<WebSearchDebug> } {
   let lastStatus: string | undefined;
   let lastError: string | undefined;
 
@@ -402,7 +403,7 @@ export function registerOpenAIWebSearch(
     },
   });
 
-  pi.registerTool({
+  const tool = registerOptionalTool(pi, {
     name: OPENAI_WEBSEARCH_TOOL,
     label: "OpenAI web search",
     description:
@@ -426,7 +427,7 @@ export function registerOpenAIWebSearch(
     },
   });
 
-  return { getDebug };
+  return { getDebug, ...tool };
 }
 
 export const _websearchTest = {

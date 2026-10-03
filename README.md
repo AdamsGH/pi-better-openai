@@ -139,6 +139,8 @@ Example config:
 }
 ```
 
+Setting `image.enabled`, `websearch.enabled`, or `decisions.enabled` to `false` hides that tool and removes its system-prompt guidance, including from pi-fabric capture. Changes in `/openai-settings` or `/openai-decisions` apply immediately; use `/reload` after editing config files manually. Configuration commands remain available.
+
 ## Service tiers
 
 `/openai-tier fast` requests `service_tier: "priority"`. `/openai-tier standard` explicitly requests `"default"`, clearing an inherited Fast/Ultrafast request tier on OpenAI providers. Legacy disabled configurations without an explicit tier leave payloads untouched. `/fast` and the `--fast` flag never select Ultrafast.
