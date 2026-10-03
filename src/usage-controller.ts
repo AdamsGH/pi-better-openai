@@ -108,7 +108,7 @@ export class UsageController {
       this.usageUpdatedAt && Date.now() - this.usageUpdatedAt > cfg.usage.refreshIntervalMs * 2
         ? ` · stale ${formatResetCountdown((Date.now() - this.usageUpdatedAt) / 1000)}`
         : "";
-    return `${formatUsageSnapshot(this.usageSnapshot, cfg.usage)}${stale}`;
+    return `${formatUsageSnapshot(this.usageSnapshot, { showResetTimes: cfg.usage.showResetTimes, showBankedResets: cfg.usage.showBankedResets })}${stale}`;
   }
 
   formatDebug(ctx: ExtensionContext): string {
