@@ -120,24 +120,16 @@ function formatResetClock(
   return `${weekday} ${date} ${time}`;
 }
 
-function formatCompactReset(
-  label: string | undefined,
+function formatReset(
   seconds: number | null,
   options?: { includeDate?: boolean; resetFormat?: UsageConfig["resetFormat"] },
   now = Date.now(),
 ): string | null {
+  if (options?.resetFormat === "countdown") return formatResetCountdown(seconds);
+  if (options?.resetFormat === "clock") return formatResetClock(seconds, options, now);
   const countdown = formatResetCountdown(seconds);
   const clock = formatResetClock(seconds, options, now);
-  const resetFormat = options?.resetFormat ?? "both";
-  const reset =
-    resetFormat === "countdown"
-      ? countdown
-      : resetFormat === "clock"
-        ? clock
-        : countdown && clock
-          ? `${countdown} - ${clock}`
-          : null;
-  return reset ? `${label ? `${label} ` : ""}↺ ${reset}` : null;
+  return countdown && clock ? `${countdown} - ${clock}` : null;
 }
 
 function isAbortSignal(value: unknown): value is AbortSignal {
@@ -332,24 +324,23 @@ export function usageSegments(
     });
     if (compact && options.showResetTimes) {
       const seconds = remainingResetSeconds(window.resetSeconds, snapshot.capturedAt, now);
-      const reset = formatCompactReset(
-        undefined,
+      const reset = formatReset(
         seconds,
         { includeDate: window.includeDate, resetFormat: options.resetFormat },
         now,
       );
-      if (reset) segments.push({ text: ` ${reset.replace(/^↺ /, "")}`, severity: "muted" });
+      if (reset) segments.push({ text: ` ${reset}`, severity: "muted" });
     }
   });
   if (!compact && options.showResetTimes) {
     for (const window of displayedWindows) {
-      const reset = formatCompactReset(
-        displayedWindows.length > 1 ? window.label : undefined,
+      const reset = formatReset(
         remainingResetSeconds(window.resetSeconds, snapshot.capturedAt, now),
         { includeDate: window.includeDate, resetFormat: options.resetFormat },
         now,
       );
-      if (reset) segments.push({ text: ` · ${reset}`, severity: "muted" });
+      const label = displayedWindows.length > 1 ? `${window.label} ` : "";
+      if (reset) segments.push({ text: ` · ${label}↺ ${reset}`, severity: "muted" });
     }
   }
   const banked =
