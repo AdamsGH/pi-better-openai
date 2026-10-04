@@ -2,7 +2,7 @@ import { HttpsProxyAgent } from "https-proxy-agent";
 import { getProxyForUrl } from "proxy-from-env";
 import { fetch as undiciFetch, ProxyAgent } from "undici";
 import WebSocket, { type RawData } from "ws";
-import type { CodexCredentials } from "../codex-auth.ts";
+import { CODEX_AUTH_REQUIRED, type CodexCredentials } from "../codex-auth.ts";
 import { generateCodexAttestation } from "./attestation.ts";
 import { loadLiveNative, type LiveNativeBindings, type LiveWebRtcPeerInstance } from "./native.ts";
 import {
@@ -186,7 +186,7 @@ export class CodexLiveTransport {
   async #signal(offer: string): Promise<LiveSignalingResult> {
     const credentials = await this.#options.getCredentials(this.#operationSignal);
     if (!credentials) {
-      throw new Error("Missing openai-codex OAuth credentials. Run /login openai-codex.");
+      throw new Error(CODEX_AUTH_REQUIRED);
     }
     const attestation = await generateCodexAttestation(this.#native);
     const headers = buildLiveHeaders(
