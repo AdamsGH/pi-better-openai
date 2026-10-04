@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.11
+
+- Auto-redeem banked Codex resets ten minutes before expiry instead of one minute, with matching settings and redemption-time displays.
+- Preserve the scheduled credit across polling refreshes so the longer lead retains the no-fallback safeguard.
+- Extend the shared redemption cooldown to ten minutes and add regression coverage for exact timing and startup inside the redemption window.
+
 ## 0.2.10
 
 - Hide disabled image, web search, and decision tools and their prompt guidance, including from pi-fabric capture.
