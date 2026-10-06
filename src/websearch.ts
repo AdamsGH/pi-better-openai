@@ -6,7 +6,11 @@ import {
   type ResolvedConfig,
   type WebsearchResponseLength,
 } from "./config.ts";
-import { getCodexCredentials, type CodexCredentialsWithSource } from "./codex-auth.ts";
+import {
+  CODEX_AUTH_REQUIRED,
+  getCodexCredentials,
+  type CodexCredentialsWithSource,
+} from "./codex-auth.ts";
 import { maskIdentifier, sanitizeDiagnosticError } from "./format.ts";
 import { registerOptionalTool, type OptionalTool } from "./optional-tool.ts";
 
@@ -90,10 +94,7 @@ async function getCredentials(
 ): Promise<CodexCredentialsWithSource> {
   const credentials = await getCodexCredentials(ctx, signal);
   if (credentials) return credentials;
-  throw new WebSearchError(
-    "authentication_required",
-    "Missing openai-codex OAuth credentials. Run /login openai-codex.",
-  );
+  throw new WebSearchError("authentication_required", CODEX_AUTH_REQUIRED);
 }
 
 export function validateSearchQuery(query: string): string {

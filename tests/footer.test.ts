@@ -267,7 +267,7 @@ describe("footer mode ownership", () => {
       else statuses.set(key, text);
     });
     await emit(h, "session_start");
-    await vi.waitFor(() => expect(statuses.get("better-openai")).toBe("W:70% 5d12h"));
+    await vi.waitFor(() => expect(statuses.get("better-openai")).toBe("Codex W:70% 5d12h"));
     expect(h.setFooter).not.toHaveBeenCalled();
     expect(h.setWidget).not.toHaveBeenCalled();
     h.ctx.model = undefined;
