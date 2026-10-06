@@ -143,6 +143,8 @@ Example config:
 }
 ```
 
+Setting `image.enabled`, `websearch.enabled`, or `decisions.enabled` to `false` hides that tool and removes its system-prompt guidance, including from pi-fabric capture. Changes in `/openai-settings` or `/openai-decisions` apply immediately; use `/reload` after editing config files manually. Configuration commands remain available.
+
 ## Usage display and footer modes
 
 `footer.mode` defaults to `status`: usage is published through pi's public `ctx.ui.setStatus` API, leaving the host footer intact. The footer owner controls its placement; `status` no longer adds a separate below-editor widget. Saved `replace` selections remain unchanged. `replace` is opt-in and installs the custom Better OpenAI footer. If another extension replaces it, Better OpenAI falls back to publishing status instead of reclaiming the footer; switch away from `replace` and back to enable it again. Pets require `replace`; enabling a pet does not capture the footer in `status` or `off`. `off` disables Better OpenAI footer/status output and never captures the footer.
